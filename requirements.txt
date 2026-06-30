@@ -1,9 +1,12 @@
 gradio
-transformers
 torch
+transformers
 biopython
 requests
-peft
+sentence-transformers
+faiss-cpu
 accelerate
+peft
 sacremoses
 sentencepiece
+protobuf
