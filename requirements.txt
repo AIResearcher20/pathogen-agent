@@ -1,0 +1,9 @@
+gradio
+transformers
+torch
+biopython
+requests
+peft
+accelerate
+sacremoses
+sentencepiece
