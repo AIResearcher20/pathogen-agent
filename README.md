@@ -1,228 +1,222 @@
-# 🧬 PathogenAgent
+🧬 PathogenAgent
 
-**Agentic AI System for Pathogen Genomics, Variant Interpretation, and Biomedical Knowledge Retrieval**
+Research‑Grade Agentic AI for Pathogen Genomics and Biomedical Evidence Retrieval
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/PyTorch-Deep_Learning-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
-  <img src="https://img.shields.io/badge/BioGPT-Biomedical_LLM-008080?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/HuggingFace-Transformers-FFD21E?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Gradio-Web_Interface-FF6F00?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/LangChain-Agentic_AI-00A67E?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Gradio-Web_UI-FF6F00?style=for-the-badge&logo=gradio&logoColor=white">
+  <img src="https://img.shields.io/badge/BioGPT-Fine--tuned-008080?style=for-the-badge&logo=huggingface&logoColor=white">
+  <img src="https://img.shields.io/badge/RAG-FAISS-FFD700?style=for-the-badge">
+  <img src="https://img.shields.io/badge/NCBI-Pubmed%20%7C%20GenBank%20%7C%20ClinVar-006699?style=for-the-badge&logo=pubmed&logoColor=white">
 </p>
 
 ---
 
-## 🌍 Overview
+📌 Overview
 
-PathogenAgent is an interactive biomedical AI assistant that retrieves and summarizes information from PubMed, GenBank, and ClinVar using a fine-tuned BioGPT model.
+PathogenAgent is a research‑grade biomedical AI system that retrieves and interprets genomic and clinical information from PubMed, GenBank, and ClinVar using a Retrieval‑Augmented Generation (RAG) pipeline.
 
-The system provides a simple interface for researchers and students to explore pathogen genomics, genomic variants, and biomedical literature through natural language queries.
+The system combines:
 
----
+· Real‑time data retrieval from NCBI APIs
+· Semantic memory via FAISS vector search
+· Grounded LLM inference using a fine‑tuned BioGPT model
 
-## 🎯 What This Project Does
-
-- Accepts a user query (e.g., a pathogen name, gene, or variant)
-- Searches PubMed for relevant scientific articles
-- Retrieves genomic sequence data from GenBank
-- Looks up clinical significance from ClinVar
-- Displays results in a structured format using Gradio
-
-The system uses a **fine-tuned BioGPT model** (BioGPT-ClinVar) to support interpretation and summarization tasks.
+It is designed as a practical tool for exploring pathogen genomics, variant interpretation, and biomedical literature retrieval — with a strong emphasis on reproducibility and evidence‑based responses.
 
 ---
 
-## ✨ Key Features
+✨ What It Actually Does
 
-🔬 **PubMed Literature Search**
-- Retrieves article titles based on user queries
-- Returns up to 3 relevant results
-
-🧬 **GenBank Sequence Retrieval**
-- Fetches complete genome sequences for organisms
-- Displays sequence length and first 200 bp
-
-🧪 **ClinVar Variant Lookup**
-- Searches for clinical significance of variants
-- Returns available pathogenicity annotations
-
-🤖 **BioGPT Integration**
-- Uses the fine-tuned BioGPT-ClinVar model
-- Supports interpretation and summarization
-
-🌐 **Gradio Web Interface**
-- Simple, clean interface for research use
-- Real-time response display
+Capability Implementation
+PubMed article retrieval Queries NCBI E‑utilities, returns titles and PMIDs
+GenBank sequence access Fetches complete genome records and displays preview
+ClinVar variant lookup Retrieves clinical significance records
+Semantic memory (RAG) Stores retrieved evidence in a FAISS index and performs similarity search
+Confidence scoring Heuristic score based on available evidence sources
+BioGPT interpretation Generates grounded summaries only when sufficient evidence exists
 
 ---
 
-## 🏗️ System Architecture
+🧠 Architecture (Real Implementation)
 
 ```
-
 User Query
-│
-▼
-PathogenAgent
-│
-┌───┼────────────┐
-│   │            │
-▼   ▼            ▼
-PubMed GenBank ClinVar
-│     │          │
-└─────┼──────────┘
-▼
-Fine-tuned BioGPT
-▼
-Structured Output
-
+     │
+     ▼
+┌─────────────┐
+│ Query Router │  → variant / pathogen / general
+└─────────────┘
+     │
+     ├─────────────┬─────────────┬─────────────┐
+     ▼             ▼             ▼             ▼
+ PubMed       GenBank       ClinVar     FAISS Memory
+     │             │             │             │
+     └─────────────┴─────────────┴─────────────┘
+                        │
+                        ▼
+              ┌─────────────────┐
+              │ Grounded BioGPT  │  → only if evidence is sufficient
+              └─────────────────┘
+                        │
+                        ▼
+              Structured Markdown Output
 ```
 
 ---
 
-## 🚀 Live Demo
+🛠️ Technology Stack (What Was Actually Used)
 
-Try the interactive application:
-
-🔗 **Hugging Face Space**  
-[https://huggingface.co/spaces/yourusername/pathogen-agent](https://huggingface.co/spaces/yourusername/pathogen-agent)
+Component Technology
+Programming Python 3.10
+Web interface Gradio
+LLM BioGPT (fine‑tuned on ClinVar) – Sepideh2027/biogpt-clinvar-finetuned
+Embedding model Sentence‑Transformers all‑MiniLM‑L6‑v2
+Vector store FAISS (CPU)
+Retrieval NCBI E‑utilities (PubMed, GenBank, ClinVar)
+Bioinformatics Biopython
+Deployment Google Colab (public Gradio link)
 
 ---
 
-## 📦 Installation
+📊 Evidence Retrieval & Confidence
 
-Clone the repository:
+The system uses a simple but transparent heuristic:
+
+Evidence Source Max Contribution
+PubMed articles up to 0.4
+ClinVar records up to 0.4
+GenBank sequence up to 0.2
+
+BioGPT is only invoked when confidence > 0.4 and ClinVar evidence is present.
+This prevents hallucination and ensures that interpretations are grounded in actual clinical records.
+
+---
+
+🧬 How to Use (Local or Colab)
+
+1. Clone the repository
 
 ```bash
 git clone https://github.com/yourusername/pathogen-agent.git
 cd pathogen-agent
 ```
 
-Install dependencies:
+2. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Launch the application:
+3. Run the application
 
 ```bash
 python app.py
 ```
 
+4. Access the Gradio interface – a public link will be generated.
+
 ---
 
-📁 Project Structure
+📁 Repository Structure
 
 ```
-PathogenAgent/
+pathogen-agent/
 │
-├── app.py                # Main application
-├── requirements.txt      # Dependencies
-├── README.md             # Documentation
-├── LICENSE               # MIT License
-└── .gitignore            # Ignored files
+├── app.py                 # Main application
+├── requirements.txt       # Python dependencies
+├── README.md              # This file
+├── assets/                # Screenshots
+│   ├── CFTR_1.png
+│   ├── CFTR_2.png
+│   ├── CFTR_3.png
+│   ├── TP53_1.png
+│   ├── TP53_2.png
+│   └── TP53_3.png
+└── LICENSE                # MIT License
 ```
 
 ---
 
-🧠 Model Information
+🔬 Sample Queries That Work
 
-The system uses BioGPT-ClinVar, a fine-tuned version of Microsoft BioGPT on ClinVar genomic variants.
-
-· Base Model: microsoft/biogpt (150M parameters)
-· Fine-tuning Method: LoRA
-· Training Data: ~20,000 ClinVar variants
-· Training Loss: 1.39 (final)
-· Validation Loss: 1.40 (final)
-
-The model is publicly available on Hugging Face Hub:
-Sepideh2027/biogpt-clinvar-finetuned
+Query Type Example
+Pathogen (genome) SARS-CoV-2 genome
+Variant (clinical) CFTR F508del
+Gene (general) BRCA1
+Variant (cancer) TP53 R175H
 
 ---
 
-📋 How It Works
+🖼️ Demo Screenshots
 
-1. User enters a query (e.g., "SARS-CoV-2 spike protein")
-2. The agent determines which tools to use:
-   · PubMed for articles
-   · GenBank for genomic sequences
-   · ClinVar for variant significance
-3. Results are collected and displayed
-4. BioGPT optionally provides summarization (if needed)
+Query: CFTR F508del
 
----
+assets/CFTR_1.png
+assets/CFTR_2.png
+assets/CFTR_3.png
 
-🛠️ Technology Stack
+Query: TP53 R175H
 
-Category Tools
-Programming Python 3.10
-Deep Learning PyTorch, Hugging Face Transformers
-LLM BioGPT (fine-tuned)
-Fine-tuning LoRA (PEFT)
-Agent Framework LangChain
-Web Interface Gradio
-Bioinformatics Biopython, NCBI API
-Data Sources PubMed, GenBank, ClinVar
+assets/TP53_1.png
+assets/TP53_2.png
+assets/TP53_3.png
 
 ---
 
-🔬 Research Applications
+🔗 Live Demo (Temporary)
 
-· Pathogen genomics exploration
-· Genomic variant lookup
-· Biomedical literature retrieval
-· Educational tool for bioinformatics
-· Research prototyping in biomedical AI
+A public instance is available via Gradio sharing:
 
----
+👉 PathogenAgent Live Demo
 
-👩‍🔬 Author
-
-Vania Karimi
-Independent Researcher in Biomedical AI & Computational Biology
-
-· GitHub: github.com/yourusername
-· Hugging Face: huggingface.co/Sepideh2027
+⚠️ This link is temporary (72 hours). For a permanent version, deploy on Hugging Face Spaces using the same codebase.
 
 ---
 
-📜 Citation
+⚠️ Known Limitations (Honest Disclosure)
 
-If you use this work, please cite:
-
-```bibtex
-@software{karimi2026pathogenagent,
-  author = {Karimi, Vania},
-  title = {PathogenAgent: Agentic AI for Pathogen Genomic Analysis},
-  year = {2026},
-  url = {https://github.com/yourusername/pathogen-agent}
-}
-```
+Limitation Explanation
+ClinVar coverage Not all variants return ClinVar records due to NCBI API formatting or data availability
+Temporary demo link Gradio share=True links expire after 72 hours
+No external evaluation The system has not been benchmarked against gold‑standard clinical datasets
+Heuristic confidence Confidence score is rule‑based, not learned
+Single‑user mode Designed for interactive exploration, not production‑scale deployment
 
 ---
 
-📄 License
+📜 License
 
 This project is released under the MIT License.
 
 ---
 
-⭐ Support
+👩‍🔬 Author
 
-If you find this project useful:
+Sepideh Moafi 
+Independent Researcher in Biomedical AI & Computational Biology
 
-· ⭐ Star the repository
-· 🍴 Fork it for your own use
-· 📚 Share it with fellow researchers
+· GitHub: github.com/yourusername
+· Hugging Face: huggingface.co/Sepideh2027
+· Email: Vania Karimi@gmail.com
 
 ---
 
-<p align="center">
-  AI for Science • Genomics • Biomedical AI • Open Research
-</p>
+🧾 Citation
+
+If you use this work, please cite:
+
+```bibtex
+@software{Moafi 2026pathogenagent,
+  author = {Moafi, Sepideh},
+  title = {PathogenAgent: Research-Grade Agentic AI for Pathogen Genomics},
+  year = {2026},
+  url = {https://github.com/AIResearcher20/pathogen-agent}
+}
 ```
 
 ---
 
+<p align="center">
+  Built for reproducible biomedical AI research.
+</p>
