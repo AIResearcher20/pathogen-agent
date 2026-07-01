@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+data/
+*.vcf
+*.vcf.gz
+*.pt
+*.pth
+*.safetensors
+.DS_Store
+.env
+biogpt_clinvar_results/
+biogpt_final_model/
+*.csv
+*.png
+*.gif
