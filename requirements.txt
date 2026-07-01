@@ -10,3 +10,7 @@ peft
 sacremoses
 sentencepiece
 protobuf
+pandas
+scikit-learn
+matplotlib
+pyyaml
