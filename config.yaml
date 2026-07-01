@@ -1,0 +1,65 @@
+entrez_email: "anonymous@pathogenagent.ai"
+entrez_tool: "PathogenAgent-v3"
+user_agent: "PathogenAgent/3.0"
+model_name: "Sepideh2027/biogpt-clinvar-finetuned"
+embedding_model: "all-MiniLM-L6-v2"
+faiss_dimension: 384
+max_pubmed_results: 5
+max_clinvar_results: 5
+max_genbank_results: 1
+max_iterations: 3
+memory_k: 5
+confidence_threshold: 0.3
+biogpt_max_tokens: 100
+biogpt_temperature: 0.3
+high_quality_journals:
+  - Nature
+  - Cell
+  - Science
+  - NEJM
+  - Lancet
+  - BMJ
+  - JAMA
+  - Nature Genetics
+  - Genome Medicine
+gene_list:
+  - tp53
+  - brca1
+  - brca2
+  - cftr
+  - egfr
+  - kras
+  - alk
+  - ros1
+  - her2
+  - apoe
+  - myc
+  - ras
+  - raf
+pathogen_keywords:
+  - virus
+  - genome
+  - sequence
+  - strain
+  - protein
+  - cov
+  - sars
+  - ebola
+  - influenza
+  - mers
+  - hiv
+  - dengue
+  - zika
+  - tuberculosis
+  - malaria
+variant_patterns:
+  - "c\\.[0-9]+[a-z]?[0-9]*[a-z]?[0-9]*[a-z]?"
+  - "p\\.[a-z][0-9]+[a-z]"
+  - "rs[0-9]+"
+  - "[a-z0-9]+del[a-z0-9]*"
+  - "[a-z0-9]+dup[a-z0-9]*"
+  - "[a-z0-9]+ins[a-z0-9]*"
+confidence_weights:
+  pubmed: 0.4
+  clinvar: 0.4
+  genbank: 0.2
