@@ -13,6 +13,10 @@
 </p>
 
 ---
+**Year:** 2024–Present  
+**License:** MIT  
+**Author:** Sepideh Moafi 
+---
 
 ## 📌 Overview
 
@@ -239,10 +243,10 @@ Deployment Google Colab, Hugging Face Spaces
 If you use this work, please cite:
 
 ```bibtex
-@software{karimi2026pathogenagent,
-  author = {Karimi, Vania},
+@software{Moafi2025pathogenagent,
+  author = {Moafi, Sepideh},
   title = {PathogenAgent: An Agentic AI Framework for Pathogen Genomic Analysis},
-  year = {2026},
+  year = {2025},
   url = {https://github.com/yourusername/pathogen-agent}
 }
 ```
